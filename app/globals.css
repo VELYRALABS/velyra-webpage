@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  /* Define your Project Lyra colors here for Tailwind 4 */
+  --color-primary: #00E5C3;
+  --color-secondary: #6C4BFF;
+  --color-background: #FAF9F6;
+  --color-navy: #1A1A2E;
+}
+
+:root {
+  background-color: #FAF9F6;
+  color: #1A1A2E;
+}
+
+/* This stops the browser from forcing a dark background */
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: #FAF9F6;
+    color: #1A1A2E;
+  }
+}
+
+body {
+  background-color: #FAF9F6;
+  color: #1A1A2E;
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* @font-face {
+  font-family: 'Wensley';
+  src: url('/fonts/Wensley-Regular.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+} */
