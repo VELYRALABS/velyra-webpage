@@ -6,11 +6,12 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Platform() {
   return (
-    // Changed: bg-[#FAF9F6] -> bg-background
-    <div className="bg-background min-h-screen transition-colors">
-      {/* Hero - Keeping this Dark as Brand Identity */}
-      <section className="bg-[#1A1A2E] text-white pt-32 pb-24 md:pt-40 md:pb-32 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-[#1A1A2E] to-[#1A1A2E]" />
+    <div className="bg-background min-h-screen transition-colors duration-500">
+      {/* Hero - Changed from Navy to Black/Foreground */}
+      <section className="bg-foreground text-background pt-32 pb-24 md:pt-40 md:pb-32 px-6 relative overflow-hidden">
+        {/* Glow updated to Orange */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-foreground to-foreground" />
+        
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-primary text-[11px] font-medium tracking-[3px] uppercase mb-6">
             The Platform
@@ -18,13 +19,13 @@ export default function Platform() {
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-display text-5xl md:text-7xl font-semibold tracking-tight mb-6">
             Intelligence at the speed of care.
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-white/70 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-background/70 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
             Five interconnected modules. One unified platform. Zero compromise on clinical precision.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
              <Button 
                 onClick={() => document.getElementById("modules")?.scrollIntoView({ behavior: "smooth" })}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_20px_rgba(0,229,195,0.3)] h-12 px-8 rounded-lg text-base"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_25px_rgba(255,92,0,0.4)] h-12 px-8 rounded-lg text-base"
               >
                 Explore Modules ↓
               </Button>
@@ -32,7 +33,7 @@ export default function Platform() {
         </div>
       </section>
 
-      {/* Stats - Now adapts to Dark Mode */}
+      {/* Stats */}
       <section className="bg-background border-y border-border py-12 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-border">
           {[
@@ -49,11 +50,10 @@ export default function Platform() {
         </div>
       </section>
 
-      {/* Modules - Now adapts to Dark Mode */}
+      {/* Modules */}
       <section id="modules" className="py-24 md:py-32 px-6">
         <div className="max-w-7xl mx-auto space-y-32">
           
-          {/* Module Loop Item */}
           {[
             {
               id: "01",
@@ -103,17 +103,22 @@ export default function Platform() {
                 <div className="text-primary text-[11px] font-medium tracking-[3px] uppercase mb-4">Module {m.id}</div>
                 <h2 className="font-display text-4xl text-foreground font-semibold mb-4">{m.title}</h2>
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{m.desc}</p>
-                <div className="bg-foreground/5 dark:bg-white/5 text-foreground p-6 rounded-xl border border-border font-mono text-sm space-y-3 mb-8">
+                <div className="bg-card text-foreground p-6 rounded-xl border border-border font-mono text-sm space-y-3 mb-8 shadow-sm">
                   {m.stats.map(([k, v]) => (
-                    <div key={k} className="flex justify-between"><span>{k}:</span><span className="text-primary">{v}</span></div>
+                    <div key={k} className="flex justify-between">
+                      <span className="opacity-60">{k}:</span>
+                      <span className="text-primary font-bold">{v}</span>
+                    </div>
                   ))}
                 </div>
                 <Link href={m.href}>
-                  <Button variant="outline" className="h-12 px-6">Explore {m.title} →</Button>
+                  <Button variant="outline" className="h-12 px-6 border-foreground/20 hover:bg-foreground hover:text-background transition-all">
+                    Explore {m.title} →
+                  </Button>
                 </Link>
               </motion.div>
               <motion.div className={m.reverse ? "order-2 lg:order-1" : ""} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
-                 <img src={m.img} alt={m.title} className="w-full rounded-2xl shadow-2xl dark:opacity-80 transition-opacity" />
+                 <img src={m.img} alt={m.title} className="w-full rounded-2xl shadow-2xl dark:opacity-90 transition-opacity border border-border" />
               </motion.div>
             </div>
           ))}
@@ -121,15 +126,15 @@ export default function Platform() {
         </div>
       </section>
 
-      {/* Keep Integrations/Security Dark (High Contrast Section) */}
-      <section className="bg-[#1A1A2E] text-white py-24 md:py-32 px-6">
+      {/* Enterprise Sections - Changed from Navy to Black */}
+      <section className="bg-foreground text-background py-24 md:py-32 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
              <h3 className="font-display text-3xl font-semibold mb-8">Enterprise Integrations</h3>
-             <p className="text-white/70 mb-8">Seamlessly plug into your existing infrastructure with standard protocols.</p>
+             <p className="opacity-70 mb-8">Seamlessly plug into your existing infrastructure with standard protocols.</p>
              <div className="grid grid-cols-2 gap-4">
                {['HL7 FHIR R4', 'DICOM 3.0', 'Google Cloud Healthcare API', 'Gemini Vision API'].map(tech => (
-                 <div key={tech} className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-center text-center">
+                 <div key={tech} className="bg-background/5 border border-background/10 p-4 rounded-lg flex items-center justify-center text-center">
                    <span className="font-mono text-sm">{tech}</span>
                  </div>
                ))}
@@ -137,14 +142,14 @@ export default function Platform() {
           </div>
           <div>
              <h3 className="font-display text-3xl font-semibold mb-8">Security & Compliance</h3>
-             <p className="text-white/70 mb-8">Built to the highest standards of data protection and patient privacy.</p>
+             <p className="opacity-70 mb-8">Built to the highest standards of data protection and patient privacy.</p>
              <div className="space-y-4">
                {['HIPAA', 'SOC 2', 'GDPR', 'ISO 27001'].map(cert => (
-                 <div key={cert} className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center justify-between">
+                 <div key={cert} className="bg-background/5 border border-background/10 p-4 rounded-lg flex items-center justify-between">
                    <span className="font-medium">{cert}</span>
                    <div className="flex items-center gap-4">
-                     <span className="text-xs text-white/50 uppercase tracking-widest">In Process</span>
-                     <div className="w-24 h-2 bg-black/40 rounded-full overflow-hidden">
+                     <span className="text-xs opacity-50 uppercase tracking-widest">In Process</span>
+                     <div className="w-24 h-2 bg-background/10 rounded-full overflow-hidden">
                        <div className="h-full bg-primary w-[40%]" />
                      </div>
                    </div>

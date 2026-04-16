@@ -9,7 +9,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#FAF9F6] selection:bg-primary/30 selection:text-[#1A1A2E]">
+    <div className="min-h-screen bg-[--background] selection:bg-primary/30 selection:text-[--foreground]">
       <Hero />
       <ProductStory />
       <ArchitectureFlow />

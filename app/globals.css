@@ -1,46 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #00E5C3;
-  --color-primary-foreground: #1A1A2E;
-  --color-secondary: #6C4BFF;
-  
-  /* Semantic Variables */
+  /* Brand Colors */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --color-border: var(--border);
-  
-  /* Button specific variables for your UI component */
-  --color-primary-border: var(--primary-border);
-  --color-secondary-border: var(--secondary-border);
-  --button-outline: var(--border-color);
+  --color-accent: var(--accent);
 }
 
 :root {
-  --background: #FAF9F6;
-  --foreground: #1A1A2E;
-  --muted-foreground: #64748B;
-  --border: rgba(0, 0, 0, 0.1);
-  --primary-border: #00C4A8;
-  --secondary-border: #5A3EE0;
-  --border-color: rgba(26, 26, 46, 0.2);
+  --background: #FCFAF7; /* Luxury Linen */
+  --foreground: #121212; /* Rich Charcoal */
+  --card: #FFFFFF;
+  --card-foreground: #121212;
+  --primary: #FF5C00;    /* Deep Ignite Orange */
+  --primary-foreground: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.08);
+  --accent: rgba(255, 92, 0, 0.05);
 }
 
 .dark {
-  --background: #0B0B14;
-  --foreground: #FAF9F6;
-  --muted-foreground: #94A3B8;
-  --border: rgba(255, 255, 255, 0.1);
-  --primary-border: #00E5C3;
-  --secondary-border: #6C4BFF;
-  --border-color: rgba(255, 255, 255, 0.2);
+  --background: #0A0A0B; /* Deep Void Black */
+  --foreground: #F5F5F7; /* Apple-style Off-white */
+  --card: #161618;       /* Elevated Surface */
+  --card-foreground: #F5F5F7;
+  --primary: #FF5C00;    /* Glows better on dark */
+  --primary-foreground: #000000;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: rgba(255, 92, 0, 0.15);
 }
 
-@layer base {
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
+/* Global Transitions for that "Smooth" feeling */
+* {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.2s ease;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "ss01", "ss02", "cv01"; /* Premium font features */
 }
