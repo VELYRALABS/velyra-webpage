@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -9,13 +8,13 @@ export function Portals() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section className="py-24 md:py-32 bg-[#FAF9F6]">
+    <section className="py-24 md:py-32 bg-background transition-colors">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
-          <div className="text-[#00B8A0] text-[11px] font-medium tracking-[3px] uppercase mb-4">
+          <div className="text-primary text-[11px] font-medium tracking-[3px] uppercase mb-4">
             PORTALS
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-semibold text-[#1A1A2E] mb-8">
+          <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mb-8">
             Four Ways In
           </h2>
           
@@ -26,8 +25,8 @@ export function Portals() {
                 onClick={() => setActiveTab(idx)}
                 className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap
                   ${activeTab === idx 
-                    ? 'bg-[#1A1A2E] text-white shadow-md' 
-                    : 'bg-white text-[#64748B] hover:bg-black/5 border border-black/5'}`}
+                    ? 'bg-foreground text-background shadow-md' 
+                    : 'bg-background text-muted-foreground hover:bg-foreground/5 border border-border'}`}
               >
                 {tab}
               </button>
@@ -36,7 +35,6 @@ export function Portals() {
         </div>
 
         <div className="bg-[#1A1A2E] rounded-xl border-t-8 border-t-black/20 border border-white/10 shadow-2xl overflow-hidden max-w-5xl mx-auto aspect-[4/3] md:aspect-[16/9] relative">
-          {/* Browser Chrome */}
           <div className="h-10 bg-black/20 flex items-center px-4 gap-2 border-b border-white/5">
             <div className="w-3 h-3 rounded-full bg-red-500/80" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
@@ -46,7 +44,6 @@ export function Portals() {
             </div>
           </div>
           
-          {/* Content Area */}
           <div className="w-full h-[calc(100%-40px)] relative bg-[#0F0F1A]">
             <AnimatePresence mode="wait">
               <motion.div

@@ -1,35 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  /* Define your Project Lyra colors here for Tailwind 4 */
   --color-primary: #00E5C3;
+  --color-primary-foreground: #1A1A2E;
   --color-secondary: #6C4BFF;
-  --color-background: #FAF9F6;
-  --color-navy: #1A1A2E;
+  
+  /* Semantic Variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  
+  /* Button specific variables for your UI component */
+  --color-primary-border: var(--primary-border);
+  --color-secondary-border: var(--secondary-border);
+  --button-outline: var(--border-color);
 }
 
 :root {
-  background-color: #FAF9F6;
-  color: #1A1A2E;
+  --background: #FAF9F6;
+  --foreground: #1A1A2E;
+  --muted-foreground: #64748B;
+  --border: rgba(0, 0, 0, 0.1);
+  --primary-border: #00C4A8;
+  --secondary-border: #5A3EE0;
+  --border-color: rgba(26, 26, 46, 0.2);
 }
 
-/* This stops the browser from forcing a dark background */
-@media (prefers-color-scheme: dark) {
-  :root {
-    background-color: #FAF9F6;
-    color: #1A1A2E;
+.dark {
+  --background: #0B0B14;
+  --foreground: #FAF9F6;
+  --muted-foreground: #94A3B8;
+  --border: rgba(255, 255, 255, 0.1);
+  --primary-border: #00E5C3;
+  --secondary-border: #6C4BFF;
+  --border-color: rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
-
-body {
-  background-color: #FAF9F6;
-  color: #1A1A2E;
-  font-family: var(--font-inter), sans-serif;
-}
-
-/* @font-face {
-  font-family: 'Wensley';
-  src: url('/fonts/Wensley-Regular.otf') format('opentype');
-  font-weight: 600;
-  font-style: normal;
-} */
