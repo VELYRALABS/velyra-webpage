@@ -22,6 +22,7 @@ export function Navbar() {
     { name: "Platform", href: "/platform" },
     { name: "Features", href: "/platform" },
     { name: "Company", href: "/company" },
+    { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" },
   ];
 

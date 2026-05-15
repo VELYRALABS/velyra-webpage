@@ -22,6 +22,7 @@ export function Footer() {
               <li><Link href="/platform" className="opacity-70 hover:text-primary transition-colors text-sm cursor-pointer">Platform</Link></li>
               <li><Link href="/platform" className="opacity-70 hover:text-primary transition-colors text-sm cursor-pointer">Features</Link></li>
               <li><Link href="/company" className="opacity-70 hover:text-primary transition-colors text-sm cursor-pointer">Company</Link></li>
+              <li><Link href="/careers" className="opacity-70 hover:text-primary transition-colors text-sm cursor-pointer">Careers</Link></li>
               <li><Link href="/contact" className="opacity-70 hover:text-primary transition-colors text-sm cursor-pointer">Contact</Link></li>
             </ul>
           </div>
