@@ -21,12 +21,21 @@ const inputClass =
 const textareaClass =
   "w-full bg-background border border-border rounded-lg p-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none text-foreground placeholder:text-muted-foreground";
 
+function normalizeJobId(value: string) {
+  try {
+    return decodeURIComponent(value).trim();
+  } catch {
+    return value.trim();
+  }
+}
+
 export default function JobDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = React.use(params);
+  const { id: rawId } = React.use(params);
+  const id = normalizeJobId(rawId);
   const { toast } = useToast();
 
   const [job, setJob]               = useState<Job | null>(null);
@@ -41,7 +50,9 @@ export default function JobDetailPage({
     fetch("/api/careers/jobs")
       .then((res) => res.json())
       .then((data: Job[]) => {
-        const found = Array.isArray(data) ? data.find((j) => j.id === id) : null;
+        const found = Array.isArray(data)
+          ? data.find((j) => normalizeJobId(j.id) === id)
+          : null;
         if (found) setJob(found);
         else setNotFound(true);
       })
@@ -153,15 +164,19 @@ export default function JobDetailPage({
                     <span className="text-xs text-muted-foreground">{job.timing}</span>
                   </>
                 )}
-                <span className="text-xs text-muted-foreground">·</span>
-                <span className="text-xs text-muted-foreground">
-                  Apply by{" "}
-                  {new Date(job.deadline).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </span>
+                {job.deadline && (
+                  <>
+                    <span className="text-xs text-muted-foreground">·</span>
+                    <span className="text-xs text-muted-foreground">
+                      Apply by{" "}
+                      {new Date(job.deadline).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </>
+                )}
               </div>
               <h1 className="font-display text-3xl md:text-4xl font-semibold text-foreground">
                 {job.title}

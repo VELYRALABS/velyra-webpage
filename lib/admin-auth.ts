@@ -9,8 +9,10 @@ export function isAdminAuthenticated(req: Request): boolean {
         return [k.trim(), v.join("=")];
       })
   );
+  const sessionValue = cookies["careers_session"];
   return (
     !!process.env.ADMIN_PASSWORD &&
-    cookies["careers_session"] === process.env.ADMIN_PASSWORD
+    !!sessionValue &&
+    decodeURIComponent(sessionValue) === process.env.ADMIN_PASSWORD
   );
 }

@@ -81,7 +81,7 @@ export default function CareersPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
               >
-                <Link href={`/careers/${job.id}`}>
+                <Link href={`/careers/${encodeURIComponent(job.id.trim())}`}>
                   <div className="bg-card border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-[0_0_30px_rgba(255,92,0,0.06)] transition-all cursor-pointer group">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
@@ -96,16 +96,18 @@ export default function CareersPage() {
                         </h3>
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
-                        <div className="text-right hidden sm:block">
-                          <p className="text-xs text-muted-foreground">Apply by</p>
-                          <p className="text-sm font-medium text-foreground">
-                            {new Date(job.deadline).toLocaleDateString("en-IN", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            })}
-                          </p>
-                        </div>
+                        {job.deadline && (
+                          <div className="text-right hidden sm:block">
+                            <p className="text-xs text-muted-foreground">Apply by</p>
+                            <p className="text-sm font-medium text-foreground">
+                              {new Date(job.deadline).toLocaleDateString("en-IN", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })}
+                            </p>
+                          </div>
+                        )}
                         <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-9 px-5 rounded-lg text-sm shadow-[0_0_15px_rgba(255,92,0,0.2)]">
                           Apply →
                         </Button>

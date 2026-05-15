@@ -5,6 +5,7 @@
 // 3. Save and deploy as Web App:
 //    - Execute as: Me
 //    - Who has access: Anyone
+//    - After future edits: Deploy > Manage deployments > Edit > New version
 // 4. Copy the deployed URL → set as CAREERS_SHEET_URL in .env.local
 // ============================================================
 
@@ -45,31 +46,48 @@ function getJobs(data) {
 
   var jobs = rows.slice(1).map(function(row) {
     return {
-      id:             String(row[0]),
-      title:          String(row[1]),
-      type:           String(row[2]),
-      location:       String(row[3]),
-      timing:         String(row[4]),
-      about:          String(row[5]),
-      responsibilities: String(row[6]),
-      qualifications: String(row[7]),
-      idealCandidate: String(row[8]),
-      compensation:   String(row[9]),
-      deadline:       String(row[10]),
-      status:         String(row[11]),
-      postedAt:       String(row[12]),
+      id:               cellToString(row[0]),
+      title:            cellToString(row[1]),
+      type:             cellToString(row[2]),
+      location:         cellToString(row[3]),
+      timing:           cellToString(row[4]),
+      about:            cellToString(row[5]),
+      responsibilities: cellToString(row[6]),
+      qualifications:   cellToString(row[7]),
+      idealCandidate:   cellToString(row[8]),
+      compensation:     cellToString(row[9]),
+      deadline:         cellToString(row[10]),
+      status:           cellToString(row[11]).toLowerCase(),
+      postedAt:         cellToString(row[12]),
     };
   }).filter(function(j) { return j.id; });
 
   if (data.publicOnly) {
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
     jobs = jobs.filter(function(j) {
-      return j.status === "active" && new Date(j.deadline) >= today;
+      return j.status === "active" && isDeadlineOpen(j.deadline);
     });
   }
 
   return jobs;
+}
+
+function cellToString(value) {
+  if (value === null || value === undefined) return "";
+  if (value instanceof Date) return value.toISOString();
+  return String(value).trim();
+}
+
+function isDeadlineOpen(deadline) {
+  if (!deadline) return true;
+
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  var deadlineDate = new Date(deadline);
+  if (isNaN(deadlineDate.getTime())) return true;
+  deadlineDate.setHours(0, 0, 0, 0);
+
+  return deadlineDate >= today;
 }
 
 function createJob(data) {

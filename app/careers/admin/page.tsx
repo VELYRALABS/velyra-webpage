@@ -118,18 +118,19 @@ export default function AdminDashboard() {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      if (data.success) {
+      if (data.error) {
+        toast({ variant: "destructive", title: "Failed to post job.", description: data.error });
+      } else {
         toast({ title: "Job posted successfully." });
         setDialogOpen(false);
         setForm(EMPTY_FORM);
-        fetchJobs();
-      } else {
-        throw new Error(data.error || "Failed");
       }
     } catch {
       toast({ variant: "destructive", title: "Failed to post job." });
     } finally {
       setPosting(false);
+      // Always refresh — with a small delay to let the sheet commit
+      setTimeout(fetchJobs, 800);
     }
   }
 
@@ -188,6 +189,14 @@ export default function AdminDashboard() {
             <span className="text-[10px] text-primary font-medium tracking-wide uppercase">VeLYRA</span>
           </div>
           <div className="flex items-center gap-3">
+            <a
+              href="/api/careers/applications-sheet"
+              target="_blank"
+              rel="noreferrer"
+              className="border border-border text-foreground hover:border-primary/40 hover:text-primary text-xs font-semibold h-8 px-4 rounded-lg transition-all inline-flex items-center"
+            >
+              View applications
+            </a>
             <button
               onClick={() => { setForm(EMPTY_FORM); setDialogOpen(true); }}
               className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold h-8 px-4 rounded-lg shadow-[0_0_15px_rgba(255,92,0,0.2)] transition-all"
@@ -471,10 +480,9 @@ export default function AdminDashboard() {
             {/* Deadline */}
             <div>
               <label className="block text-xs font-medium text-foreground mb-1.5">
-                Application Deadline <span className="text-primary">*</span>
+                Application Deadline <span className="text-muted-foreground font-normal">(optional)</span>
               </label>
               <input
-                required
                 type="date"
                 value={form.deadline}
                 min={new Date().toISOString().split("T")[0]}

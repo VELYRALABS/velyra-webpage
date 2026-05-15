@@ -6,7 +6,8 @@ export function middleware(request: NextRequest) {
   const session = request.cookies.get("careers_session");
   const isAuthenticated =
     !!process.env.ADMIN_PASSWORD &&
-    session?.value === process.env.ADMIN_PASSWORD;
+    !!session?.value &&
+    decodeURIComponent(session.value) === process.env.ADMIN_PASSWORD;
 
   if (pathname === "/careers/admin/login") {
     if (isAuthenticated) {
